@@ -1,0 +1,405 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.workout-plan-card {
+  width: 200px;
+  height: 250px;
+  perspective: 1000px;
+  margin: 20px;
+  cursor: default;
+}
+
+.workout-plan-card .front,
+.workout-plan-card .back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+}
+
+.workout-plan-card .back {
+  transform: rotateY(180deg);
+}
+
+.workout-plan-card.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.workout-plan-card.flipped .back {
+  transform: rotateY(0deg);
+}
+.workout-plan-card .back-content {
+  width: 100%;
+  height: 100%;
+  background-color: #1853A1;
+}
+
+.login-form-container {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.login-form-title {
+  text-align: center;
+}
+
+.login-form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-submit-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.recipe-search-form {
+  background-color: #f4f4f4;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-input {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 8px;
+  width: 200px;
+}
+
+.search-button {
+  background-color: #4caf50;
+  color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-left: 10px; 
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.visible {
+  opacity: 1;
+}
+
+.overlay button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.overlay button:hover {
+  background-color: #45a049;
+}
+
+
+.close-button:hover {
+  color: red;
+}
+
+.recipe-card {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.recipe-card:hover {
+  transform: scale(1.05);
+}
+
+.recipe-image img {
+  width: 100%;
+  height: auto;
+}
+
+.recipe-details {
+  padding: 16px;
+}
+
+.recipe-title {
+  margin: 0;
+  font-size: 1.2em;
+  color: black;
+}
+
+.recipe-meta {
+  color: black;
+  font-size: 0.9em;
+  margin-top: 8px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.recipe-card:hover .overlay {
+  opacity: 1;
+}
+
+.like-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+
+.like-button.liked {
+  color: red;
+}
+
+.recipe-details-modal .modal-content .like-button {
+  position: relative;
+  top: 0;
+  right: 0;
+  transform: translate(0, 0);
+  padding: 10px;
+}
+
+.recipe-details-modal .modal-content .like-button:hover {
+  background-color: #45a049;
+}
+
+.recipe-details-modal .modal-content .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.recipe-details-modal .modal-content .close-button:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.recipe-details-modal .modal-content h2,
+.recipe-details-modal .modal-content p,
+.recipe-details-modal .modal-content ul,
+.recipe-details-modal .modal-content ol {
+  margin-bottom: 10px;
+}
+
+.search-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.filter-checkbox {
+  margin-right: 8px; 
+}
+
+.filter-label {
+  color: black;
+}
+
+.apply-filters-button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 8px; 
+  margin-bottom: 16px; 
+}
+
+.apply-filters-button:hover {
+  background-color: #4caf50; 
+}
+
+@media (min-width: 768px) {
+  .search-results {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-results {
+    grid-template-columns: 1fr 1fr;
+  }
+  .recipe-card {
+    max-width: 500px;
+  }
+}
+
+/* Nutrition Logger Page styles */
+.nutrition-logger-page {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+.nutrition-logger-page h2 {
+  color: black;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.nutrition-logger-page .form-section {
+  margin-bottom: 20px;
+}
+
+.nutrition-logger-page .form-section input,
+.nutrition-logger-page .form-section button {
+  margin: 0 10px 10px 0;
+}
+
+.nutrition-logger-page .form-section input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: calc(100% - 22px);
+  margin-right: 20px;
+}
+
+.nutrition-logger-page .form-section button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nutrition-logger-page .form-section button:hover {
+  background-color: #218838;
+}
+
+.nutrition-logger-page .summary-section,
+.nutrition-logger-page .goals-section,
+.nutrition-logger-page .suggestions-section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.nutrition-logger-page .summary-section h3,
+.nutrition-logger-page .goals-section h3,
+.nutrition-logger-page .suggestions-section h3 {
+  color: black;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.nutrition-logger-page .summary-section p,
+.nutrition-logger-page .goals-section p,
+.nutrition-logger-page .suggestions-section p {
+  color: black;
+  margin: 5px 0;
+}
