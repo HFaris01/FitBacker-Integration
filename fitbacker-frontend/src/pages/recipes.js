@@ -7,8 +7,6 @@ import RecipeCard from '../components/RecipeCard';
 import RecipeDetailsModal from '../components/RecipeDetailsModal';
 import FilterOptions from '../components/FilterOptions';
 
-const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-
 const RecipePage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -20,24 +18,26 @@ const RecipePage = () => {
   const fetchSearchResults = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=10&addRecipeInformation=true`
-      );
+      const response = await fetch('/api/recipes/search?query=');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       const data = await response.json();
-      setSearchResults(data.results);
-      console.log('Fetched Data:', data.results);
+      setSearchResults(data);
+      console.log('Fetched Data:', data);
     } catch (error) {
       console.error('Error fetching search results:', error);
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   const fetchRecipeDetails = async (recipeId) => {
     try {
-      const response = await fetch(
-        `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`
-      );
+      const response = await fetch(`/api/recipes/${recipeId}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       const data = await response.json();
       setSelectedRecipe(data);
       console.log('Recipe Details:', data);

@@ -74,8 +74,7 @@ app.post('/api/auth/login', async (req, res) => {
 
 // Other Routes
 app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/recipes', require('./routes/recipes'));
-app.use('/api/logs', require('./routes/logs'));
+app.use('/api/recipes', require('./routes/recipeRoutes'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import axios from 'axios';
 
 const RecipeSearchForm = ({ onSearch }) => {
   const [query, setQuery] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    onSearch(query);
+    try {
+      const response = await axios.get(`http://localhost:5000/api/recipes/search`, {
+        params: { query }
+      });
+      onSearch(response.data);
+    } catch (error) {
+      console.error('Error fetching recipes:', error);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="recipe-search-form">
+    <form onSubmit={handleSearch}>
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search recipes..."
-        style={{ color: 'black' }}
-        className="search-input"
+        placeholder="Search for recipes..."
       />
-      <button type="submit" className="search-button">
-        <FiSearch />
-      </button>
+      <button type="submit">Search</button>
     </form>
   );
 };
