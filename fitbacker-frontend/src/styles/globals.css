@@ -403,3 +403,16 @@ body {
   color: black;
   margin: 5px 0;
 }
+
+.exercise-form input, .exercise-form button {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.exercise-list .exercise-item {
+  border-bottom: 1px solid #ccc;
+  padding: 8px 0;
+}

@@ -20,11 +20,13 @@ app.use(express.json());
 const userRoutes = require('./routes/userRoutes');
 const recipeRoutes = require('./routes/recipeRoutes');
 const authRoutes = require('./routes/auth');
+const exerciseRoutes = require('./routes/exerciseRoutes');
 
 // Use routes
 app.use('/api/users', userRoutes);
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/exercises', exerciseRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
