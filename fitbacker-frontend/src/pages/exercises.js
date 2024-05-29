@@ -3,6 +3,7 @@ import ExerciseLogger from '../components/ExerciseLogger';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import withAuth from '../components/withAuth';
 
 const ExercisesPage = () => {
   return (
@@ -19,4 +20,4 @@ const ExercisesPage = () => {
   );
 };
 
-export default ExercisesPage;
+export default withAuth(ExercisesPage);

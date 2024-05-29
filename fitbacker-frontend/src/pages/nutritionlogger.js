@@ -1,43 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import FoodLogForm from '../components/FoodLogForm';
+import NutritionSummary from '../components/NutritionSummary';
 import NutritionTracking from '../components/NutritionTracking';
+import NutritionGoals from '../components/NutritionGoals';
+import WeeklyNutritionTracking from '../components/WeeklyNutritionTracking';
+import withAuth from '../components/withAuth';
 
 const NutritionLoggerPage = () => {
-  const [foodName, setFoodName] = useState('');
-  const [calories, setCalories] = useState('');
-  const [protein, setProtein] = useState('');
-  const [carbs, setCarbs] = useState('');
-  const [fat, setFat] = useState('');
-  const [loggedFoods, setLoggedFoods] = useState([]);
-  const [nutritionSummary, setNutritionSummary] = useState({
+  const [foodLog, setFoodLog] = useState([]);
+  const [dailySummary, setDailySummary] = useState({
     calories: 0,
-    protein: 0,
+    proteins: 0,
     carbs: 0,
-    fat: 0,
+    fats: 0,
   });
 
-  const handleAddFood = () => {
-    const newFood = {
-      foodName,
-      calories: parseInt(calories),
-      protein: parseInt(protein),
-      carbs: parseInt(carbs),
-      fat: parseInt(fat),
-    };
-    setLoggedFoods([...loggedFoods, newFood]);
-    setNutritionSummary((prevSummary) => ({
-      calories: prevSummary.calories + newFood.calories,
-      protein: prevSummary.protein + newFood.protein,
-      carbs: prevSummary.carbs + newFood.carbs,
-      fat: prevSummary.fat + newFood.fat,
+  useEffect(() => {
+    // Initialize empty data structures if necessary
+    setFoodLog([]);
+    setDailySummary({
+      calories: 0,
+      proteins: 0,
+      carbs: 0,
+      fats: 0,
+    });
+  }, []);
+
+  const handleFoodLogged = (foodData) => {
+    setFoodLog((prevFoodLog) => {
+      const newFoodLog = [...prevFoodLog, foodData];
+      return newFoodLog;
+    });
+    setDailySummary((prevSummary) => ({
+      calories: prevSummary.calories + foodData.calories,
+      proteins: prevSummary.proteins + foodData.proteins,
+      carbs: prevSummary.carbs + foodData.carbs,
+      fats: prevSummary.fats + foodData.fats,
     }));
-    setFoodName('');
-    setCalories('');
-    setProtein('');
-    setCarbs('');
-    setFat('');
   };
 
   return (
@@ -45,57 +47,13 @@ const NutritionLoggerPage = () => {
       <Sidebar />
       <div className="flex-1">
         <Header />
-        <div className="nutrition-logger-page p-4">
-          <div className="form-section mb-6">
-            <h2 className="text-2xl font-bold mb-4" style={{ color: 'black' }}>Log Your Food</h2>
-            <input
-              type="text"
-              value={foodName}
-              onChange={(e) => setFoodName(e.target.value)}
-              placeholder="Food Name"
-              className="p-2 border border-gray-300 rounded mb-2 w-full"
-              style={{ color: 'black' }}
-            />
-            <input
-              type="number"
-              value={calories}
-              onChange={(e) => setCalories(e.target.value)}
-              placeholder="Calories"
-              className="p-2 border border-gray-300 rounded mb-2 w-full"
-              style={{ color: 'black' }}
-            />
-            <input
-              type="number"
-              value={protein}
-              onChange={(e) => setProtein(e.target.value)}
-              placeholder="Protein (g)"
-              className="p-2 border border-gray-300 rounded mb-2 w-full"
-              style={{ color: 'black' }}
-            />
-            <input
-              type="number"
-              value={carbs}
-              onChange={(e) => setCarbs(e.target.value)}
-              placeholder="Carbs (g)"
-              className="p-2 border border-gray-300 rounded mb-2 w-full"
-              style={{ color: 'black' }}
-            />
-            <input
-              type="number"
-              value={fat}
-              onChange={(e) => setFat(e.target.value)}
-              placeholder="Fat (g)"
-              className="p-2 border border-gray-300 rounded mb-2 w-full"
-              style={{ color: 'black' }}
-            />
-            <button 
-              onClick={handleAddFood} 
-              className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-            >
-              Add
-            </button>
-          </div>
-          <NutritionTracking loggedFoods={loggedFoods} nutritionSummary={nutritionSummary} />
+        <div className="p-6">
+          <h1 className="text-2xl font-bold mb-4">Nutrition Logger</h1>
+          <FoodLogForm onFoodLogged={handleFoodLogged} />
+          <NutritionSummary dailySummary={dailySummary} />
+          <NutritionTracking foodLog={foodLog} />
+          <WeeklyNutritionTracking />
+          <NutritionGoals />
         </div>
         <Footer />
       </div>
@@ -103,4 +61,4 @@ const NutritionLoggerPage = () => {
   );
 };
 
-export default NutritionLoggerPage;
+export default withAuth(NutritionLoggerPage);

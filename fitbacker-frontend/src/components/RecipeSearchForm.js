@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { searchRecipes } from '../services/api';
 
 const RecipeSearchForm = ({ onSearch }) => {
   const [query, setQuery] = useState('');
@@ -7,24 +7,25 @@ const RecipeSearchForm = ({ onSearch }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:5000/api/recipes/search`, {
-        params: { query }
-      });
-      onSearch(response.data);
+      const results = await searchRecipes(query);
+      onSearch(results);
     } catch (error) {
       console.error('Error fetching recipes:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSearch}>
+    <form onSubmit={handleSearch} className="mb-4">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for recipes..."
+        placeholder="Search for recipes"
+        className="border p-2 rounded w-full"
       />
-      <button type="submit">Search</button>
+      <button type="submit">
+        Search
+      </button>
     </form>
   );
 };

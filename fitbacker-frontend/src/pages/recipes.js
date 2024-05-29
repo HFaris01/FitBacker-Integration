@@ -6,39 +6,32 @@ import RecipeSearchForm from '../components/RecipeSearchForm';
 import RecipeCard from '../components/RecipeCard';
 import RecipeDetailsModal from '../components/RecipeDetailsModal';
 import FilterOptions from '../components/FilterOptions';
+import { searchRecipes, getRecipeDetails } from '../services/api';
+import withAuth from '../components/withAuth';
 
 const RecipePage = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [filters, setFilters] = useState({});
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [likedRecipes, setLikedRecipes] = useState([]);
   const [todayMeals, setTodayMeals] = useState([]);
 
-  const fetchSearchResults = async () => {
+  const fetchSearchResults = async (query) => {
     setIsLoading(true);
     try {
-      const response = await fetch('/api/recipes/search?query=');
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
+      const data = await searchRecipes(query);
       setSearchResults(data);
-      console.log('Fetched Data:', data);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching search results:', error);
-    } finally {
       setIsLoading(false);
     }
   };
-  
+
   const fetchRecipeDetails = async (recipeId) => {
     try {
-      const response = await fetch(`/api/recipes/${recipeId}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
+      const data = await getRecipeDetails(recipeId);
       setSelectedRecipe(data);
       console.log('Recipe Details:', data);
     } catch (error) {
@@ -59,9 +52,9 @@ const RecipePage = () => {
   }, [filters]);
 
   const handleLike = (recipe) => {
-    setLikedRecipes((prev) => (
-      prev.some(r => r.id === recipe.id) ? prev.filter(r => r.id !== recipe.id) : [...prev, recipe]
-    ));
+    setLikedRecipes((prev) =>
+      prev.some((r) => r.id === recipe.id) ? prev.filter((r) => r.id !== recipe.id) : [...prev, recipe]
+    );
   };
 
   const handleAddToMeal = (recipe) => {
@@ -87,7 +80,7 @@ const RecipePage = () => {
                   key={recipe.id}
                   recipe={recipe}
                   onOpenModal={handleRecipeSelect}
-                  isLiked={likedRecipes.some(r => r.id === recipe.id)}
+                  isLiked={likedRecipes.some((r) => r.id === recipe.id)}
                   onLike={() => handleLike(recipe)}
                 />
               ))
@@ -106,4 +99,4 @@ const RecipePage = () => {
   );
 };
 
-export default RecipePage;
+export default withAuth(RecipePage);

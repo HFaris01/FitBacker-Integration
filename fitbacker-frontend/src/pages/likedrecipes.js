@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
+import withAuth from '../components/withAuth';
 
 const LikedRecipes = () => {
   const [likedRecipes, setLikedRecipes] = useState([]);
@@ -45,4 +46,4 @@ const LikedRecipes = () => {
   );
 };
 
-export default LikedRecipes;
+export default withAuth(LikedRecipes);

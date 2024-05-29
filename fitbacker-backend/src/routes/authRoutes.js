@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 
 // Register route
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
-
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -22,7 +21,11 @@ router.post('/register', async (req, res) => {
         });
 
         await newUser.save();
-        res.status(201).json({ message: 'User registered successfully' });
+        const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
+            expiresIn: '1h',
+        });
+
+        res.status(201).json({ token, newUser });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
@@ -31,7 +34,6 @@ router.post('/register', async (req, res) => {
 // Login route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
     try {
         const user = await User.findOne({ email });
         if (!user) {
@@ -50,6 +52,29 @@ router.post('/login', async (req, res) => {
         res.json({ token });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Get current user route
+router.get('/me', async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId).select('-password');
+        res.json(user);
+    } catch (error) {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
+});
+
+// Token verification route
+router.get('/verifyToken', async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        res.json({ valid: true });
+    } catch (error) {
+        res.status(401).json({ message: 'Invalid token' });
     }
 });
 
