@@ -40,7 +40,7 @@ const Auth = () => {
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 text-black rounded"
                 required
               />
             </div>
@@ -52,7 +52,7 @@ const Auth = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 text-black rounded"
               required
             />
           </div>
@@ -63,7 +63,7 @@ const Auth = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 text-black rounded"
               required
             />
           </div>

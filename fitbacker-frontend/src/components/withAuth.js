@@ -15,7 +15,7 @@ const withAuth = (WrappedComponent) => {
         }
 
         try {
-          const response = await axios.get('/api/auth/verifyToken', {
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/verifyToken`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

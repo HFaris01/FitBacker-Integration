@@ -2,7 +2,45 @@ import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import Image from 'next/image';
 import axios from 'axios';
-import WeeklyNutritionGraph from './WeeklyNutritionGraph';
+
+const WeeklyNutritionGraph = ({ selectedNutrient }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchWeeklyNutrition = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/nutrition/weekly`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const formattedData = response.data.map(entry => ({
+          date: entry.date,
+          value: entry[selectedNutrient],
+        }));
+
+        setData(formattedData);
+      } catch (error) {
+        console.error('Error fetching weekly nutrition data:', error);
+      }
+    };
+
+    fetchWeeklyNutrition();
+  }, [selectedNutrient]);
+
+  return (
+    <LineChart width={500} height={300} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="date" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="value" stroke="#8884d8" />
+    </LineChart>
+  );
+};
 
 const Dashboard = () => {
   const [caloriesData, setCaloriesData] = useState([]);
