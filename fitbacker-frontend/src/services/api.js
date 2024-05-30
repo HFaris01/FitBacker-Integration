@@ -26,19 +26,36 @@ export const getRecipeDetails = async (recipeId) => {
 };
 
 export const likeRecipe = async (userId, recipeId) => {
-    const response = await api.post('/recipes/like', { userId, recipeId });
+    return api.post('/recipes/like', { userId, recipeId });
+  };
+  
+  export const addMeal = async (userId, recipeId) => {
+    return api.post('/recipes/addMeal', { userId, recipeId });
+  };
+  
+  export const getRecipeNutrients = async (recipeId) => {
+    const response = await api.get(`/recipes/nutrients/${recipeId}`);
     return response.data;
-};
+  };
 
-export const addMeal = async (userId, recipeId) => {
-    const response = await api.post('/recipes/add-meal', { userId, recipeId });
+export const logFood = async (foodData) => {
+    const response = await api.post('/nutrition/logFood', foodData);
     return response.data;
-};
-
-export const logFood = (foodData) => api.post('/api/nutrition/logFood', foodData);
-export const getDailySummary = () => api.get('/api/nutrition/dailySummary');
-export const getWeeklyNutrition = () => api.get('/api/nutrition/weeklySummary');
-export const fetchNutritionGoals = () => api.get('/api/nutrition/goals');
-export const updateNutritionGoals = (goals) => api.put('/api/nutrition/goals', goals);
+  };
+  
+  export const fetchNutritionGoals = async () => {
+    const response = await api.get('/nutrition/goals');
+    return response.data;
+  };
+  
+  export const updateNutritionGoals = async (goals) => {
+    const response = await api.put('/nutrition/goals', goals);
+    return response.data;
+  };
+  
+  export const getWeeklyNutrition = async () => {
+    const response = await api.get('/nutrition/weeklySummary');
+    return response.data;
+  };
 
 export default api;

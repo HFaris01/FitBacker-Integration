@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchNutritionGoals, updateNutritionGoals } from '../services/api';
 
-const NutritionGoals = () => {
+const  NutritionGoals = () => {
   const [goals, setGoals] = useState({
     calories: '',
     proteins: '',
@@ -42,7 +42,7 @@ const NutritionGoals = () => {
 
   return (
     <div className="nutrition-goals bg-white-custom p-6 rounded-lg shadow-md mb-4">
-      <h2 className="text-2xl font-bold mb-4 text-black-custom">Nutrition Goals</h2>
+      <h2 className="text-2xl font-bold mb-4 text-black-custom">Daily Nutrition Goals</h2>
       <form onSubmit={handleSubmit} className="goal-form">
         <label className="block mb-2 text-black-custom">
           Calories:

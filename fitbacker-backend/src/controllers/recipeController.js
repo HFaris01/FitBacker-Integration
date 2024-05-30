@@ -37,9 +37,27 @@ const addMeal = async (req, res) => {
     // Implement adding a meal
 };
 
+const getRecipeNutrients = async (req, res) => {
+  const { recipeId } = req.params;
+  try {
+    const response = await axios.get(`https://api.spoonacular.com/recipes/${recipeId}/nutritionWidget.json`, {
+      params: {
+        apiKey: process.env.SPOONACULAR_API_KEY,
+      },
+    });
+    const nutrients = response.data;
+    res.json(nutrients);
+  } catch (error) {
+    console.error('Error fetching recipe nutrients:', error);
+    res.status(500).send('Error fetching recipe nutrients');
+  }
+};
+
+
 module.exports = {
     getRecipes,
     getRecipeDetails,
     likeRecipe,
     addMeal,
+    getRecipeNutrients
 };

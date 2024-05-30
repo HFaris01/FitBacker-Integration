@@ -31,14 +31,14 @@ const FoodLogForm = ({ onFoodLogged }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="food-log-form bg-white-custom p-4 rounded-lg shadow-md mb-4">
+    <form onSubmit={handleSubmit} className="food-log-form">
       <input
         type="text"
         value={foodName}
         onChange={(e) => setFoodName(e.target.value)}
         placeholder="Food Name"
         required
-        className="input bg-gray-custom text-black-custom p-2 rounded mb-2"
+        className="input"
       />
       <input
         type="number"
@@ -46,7 +46,7 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setCalories(e.target.value)}
         placeholder="Calories"
         required
-        className="input bg-gray-custom text-black-custom p-2 rounded mb-2"
+        className="input"
       />
       <input
         type="number"
@@ -54,7 +54,7 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setProteins(e.target.value)}
         placeholder="Proteins (g)"
         required
-        className="input bg-gray-custom text-black-custom p-2 rounded mb-2"
+        className="input"
       />
       <input
         type="number"
@@ -62,7 +62,7 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setCarbs(e.target.value)}
         placeholder="Carbs (g)"
         required
-        className="input bg-gray-custom text-black-custom p-2 rounded mb-2"
+        className="input"
       />
       <input
         type="number"
@@ -70,11 +70,9 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setFats(e.target.value)}
         placeholder="Fats (g)"
         required
-        className="input bg-gray-custom text-black-custom p-2 rounded mb-2"
+        className="input"
       />
-      <button type="submit" className="btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-        Log Food
-      </button>
+      <button type="submit" className="btn">Log Food</button>
     </form>
   );
 };

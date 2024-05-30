@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getRecipes, getRecipeDetails, likeRecipe, addMeal } = require('../controllers/recipeController');
+const { getRecipes, getRecipeDetails, getRecipeNutrients, likeRecipe, addMeal } = require('../controllers/recipeController');
 const verifyToken = require('../middleware/authMiddleware');
 
 router.get('/search', async (req, res) => {
@@ -21,5 +21,6 @@ router.get('/search', async (req, res) => {
 router.get('/:id', getRecipeDetails);
 router.post('/like', verifyToken, likeRecipe);
 router.post('/meal', verifyToken, addMeal);
+router.get('/nutrients/:recipeId', getRecipeNutrients);
 
 module.exports = router;
