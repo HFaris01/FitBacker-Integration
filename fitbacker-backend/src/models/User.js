@@ -4,8 +4,8 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  likedRecipes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }],
-  meals: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }],
+  likedRecipes: [{ type: String }],
+  meals: [{ recipeId: String, date: Date }],
   goals: {
     loseWeight: { type: Boolean, default: false },
     gainMuscle: { type: Boolean, default: false },

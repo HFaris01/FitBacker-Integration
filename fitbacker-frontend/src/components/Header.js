@@ -2,19 +2,19 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { FiLogOut } from 'react-icons/fi';
 
-const Header = ({ username }) => {
+const Header = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Perform logout operation
-    // Remove user session/token
-    // Redirect to login page
-    router.push('/login');
-  };
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
+    router.push('/auth');
+};
+
 
   return (
     <header className="bg-orangeQuart text-white p-4 flex justify-between items-center">
-      <h1 className="text-xl font-bold">Welcome, {username}!</h1>
+      <h1 className="text-xl font-bold">Welcome, Friend!</h1>
       <div className="flex items-center space-x-4">
         <button
           onClick={() => router.push('/profile')}

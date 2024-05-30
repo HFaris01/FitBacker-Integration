@@ -10,7 +10,7 @@ const WeeklyNutritionGraph = ({ selectedNutrient }) => {
     const fetchWeeklyNutrition = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/nutrition/weekly`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/nutrition/weekly`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -58,7 +58,7 @@ const Dashboard = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/me`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -72,7 +72,7 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/dashboard`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

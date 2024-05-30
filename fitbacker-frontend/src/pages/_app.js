@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>FitBacker</title>
-      </Head>
+      </Head>      
       <AuthProvider>
         <main className={`${quicksand.variable} ${montserrat.variable} font-sans`}>
           <Component {...pageProps} />

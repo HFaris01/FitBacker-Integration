@@ -4,10 +4,11 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const recipeRoutes = require('./routes/recipeRoutes');
 const nutritionRoutes = require('./routes/nutritionRoutes');
 const foodRoutes = require('./routes/foodRoutes');
 const exerciseRoutes = require('./routes/exerciseRoutes');
@@ -27,10 +28,11 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Ensure these lines are correct
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api', userRoutes);
+app.use('/api/recipes', recipeRoutes);
 app.use('/api/nutrition', nutritionRoutes);
-app.use('/api/foods', foodRoutes);
-app.use('/api/exercises', exerciseRoutes);
+//app.use('/api/foods', foodRoutes);
+//app.use('/api/exercises', exerciseRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

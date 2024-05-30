@@ -43,7 +43,7 @@ const NutritionLoggerPage = () => {
   };
 
   return (
-    <div className="flex h-full bg-gray-100">
+    <div className="flex h-full bg-gray-custom text-black-custom">
       <Sidebar />
       <div className="flex-1">
         <Header />

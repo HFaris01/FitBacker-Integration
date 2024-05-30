@@ -32,6 +32,18 @@ body {
   }
 }
 
+.text-black-custom {
+  color: black;
+}
+
+.bg-white-custom {
+  background-color: white;
+}
+
+.bg-gray-custom {
+  background-color: #f4f4f4;
+}
+
 .workout-plan-card {
   width: 200px;
   height: 250px;
@@ -189,7 +201,6 @@ body {
   overflow: hidden;
   background-color: #fff;
   transition: transform 0.3s;
-  cursor: pointer;
 }
 
 .recipe-card:hover {
@@ -320,18 +331,15 @@ body {
   background-color: #4caf50; 
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .search-results {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
   .search-results {
-    grid-template-columns: 1fr 1fr;
-  }
-  .recipe-card {
-    max-width: 500px;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

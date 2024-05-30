@@ -1,33 +1,29 @@
 import React, { useState } from 'react';
-import { searchRecipes } from '../services/api';
+import { FiSearch } from 'react-icons/fi';
 
 const RecipeSearchForm = ({ onSearch }) => {
-  const [query, setQuery] = useState('');
+    const [query, setQuery] = useState('');
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    try {
-      const results = await searchRecipes(query);
-      onSearch(results);
-    } catch (error) {
-      console.error('Error fetching recipes:', error);
-    }
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSearch(query);
+    };
 
-  return (
-    <form onSubmit={handleSearch} className="mb-4">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for recipes"
-        className="border p-2 rounded w-full"
-      />
-      <button type="submit">
-        Search
-      </button>
-    </form>
-  );
+    return (
+        <form onSubmit={handleSubmit} className="recipe-search-form">
+            <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search recipes..."
+                style={{ color: 'black' }}
+                className="search-input"
+            />
+            <button type="submit" className="search-button">
+                <FiSearch />
+            </button>
+        </form>
+    );
 };
 
 export default RecipeSearchForm;

@@ -1,48 +1,24 @@
-import React, { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
-const withAuth = (WrappedComponent) => {
-  const WithAuth = (props) => {
-    const router = useRouter();
+const withAuth = WrappedComponent => {
+    return props => {
+        const { token } = useContext(AuthContext);
+        const router = useRouter();
 
-    useEffect(() => {
-      const checkAuth = async () => {
-        const token = localStorage.getItem('token');
+        useEffect(() => {
+            if (!token) {
+                router.push('/auth');
+            }
+        }, [token]);
+
         if (!token) {
-          router.push('/auth');
-          return;
+            return null; // or a loading spinner
         }
 
-        try {
-          const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/verifyToken`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          if (response.status !== 200) {
-            router.push('/auth');
-          }
-        } catch (error) {
-          console.error('Error verifying token:', error);
-          router.push('/auth');
-        }
-      };
-
-      checkAuth();
-    }, [router]);
-
-    return <WrappedComponent {...props} />;
-  };
-
-  WithAuth.displayName = `WithAuth(${getDisplayName(WrappedComponent)})`;
-
-  return WithAuth;
-};
-
-const getDisplayName = (WrappedComponent) => {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+        return <WrappedComponent {...props} />;
+    };
 };
 
 export default withAuth;
