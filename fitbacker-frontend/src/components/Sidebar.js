@@ -11,19 +11,9 @@ const Sidebar = () => {
             Home
           </li>
         </Link>
-        <Link href="/workouts">
-          <li className="text-white hover:bg-green-500 py-2 px-4 rounded cursor-pointer">
-            Workout Plans
-          </li>
-        </Link>
         <Link href="/recipes">
           <li className="text-white hover:bg-green-500 py-2 px-4 rounded cursor-pointer">
             Recipes
-          </li>
-        </Link>
-        <Link href="/likedrecipes">
-          <li className="text-white hover:bg-green-500 py-2 px-4 rounded cursor-pointer">
-            Liked Recipes
           </li>
         </Link>
         <Link href="/nutritionlogger">

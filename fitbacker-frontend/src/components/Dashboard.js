@@ -1,86 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import Image from 'next/image';
-
+import React from 'react';
 const Dashboard = () => {
-  const [dashboardData, setDashboardData] = useState([]);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    async function fetchDashboardData() {
-      try {
-        const response = await fetch('/api/dashboard'); // Fetch data from the API endpoint
-        const data = await response.json();
-        setDashboardData(data);
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-      }
-    }
-
-    fetchDashboardData();
-  }, []);
-
   return (
-    <div className="flex-1 p-6 overflow-hidden">
-      <section className="grid grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h1 className='font-bold hover:cursor-default text-2xl mb-5 text-black'> Calories you burned while exercising this week </h1>
-          {isClient && (
-            <LineChart width={400} height={300} data={dashboardData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="Calories" stroke="#8884d8" />
-            </LineChart>
-          )}
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h1 className="text-2xl hover:cursor-default font-bold text-black mb-2">You should try this exercise!</h1>
-          <div className="flex items-center">
-            <Image src="https://via.placeholder.com/400" alt="Fitness Widget" className="mr-4" />
-            <div>
-              <p className="text-black">Exercise: Push-ups</p>
-              <p className="text-black">Description: Start in a plank position with hands shoulder-width apart. Lower your body until your chest nearly touches the floor, then push yourself back up to the starting position.</p>
-              <p className="text-black">Muscles worked: Chest, shoulders, triceps, core</p>
+    <div className="flex h-full bg-gray-100">
+      <div className="flex-1">
+        <div className="p-6 space-y-6">
+          <section className="text-center bg-white p-8 rounded-lg shadow-lg">
+            <h1 className="text-4xl font-bold text-blue-600">Welcome to FitBacker!</h1>
+            <p className="mt-4 text-lg text-gray-700">Your ultimate tool for managing recipes and tracking your nutrition.</p>
+          </section>
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+              <h2 className="text-2xl font-bold text-blue-600">Recipe Search</h2>
+              <p className="mt-2 text-gray-700">Find delicious recipes tailored to your dietary needs.</p>
             </div>
-          </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+              <h2 className="text-2xl font-bold text-blue-600">Nutrition Logger</h2>
+              <p className="mt-2 text-gray-700">Keep track of your daily intake of calories, proteins, carbs, and fats.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+              <h2 className="text-2xl font-bold text-blue-600">Personalized Goals</h2>
+              <p className="mt-2 text-gray-700">Set and track your nutrition goals to stay on target.</p>
+            </div>
+          </section>
+          <section className="text-center bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-3xl font-bold text-blue-600">Get Started Today!</h2>
+            <p className="mt-4 text-lg text-gray-700">Sign up now and take control of your nutrition and fitness journey.</p>
+            <button className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+              Sign Up Now
+            </button>
+          </section>
         </div>
-      </section>
-      <section className="mt-6">
-        <h2 className="text-xl hover:cursor-default font-bold text-black mb-4">Recent Workouts</h2>
-        <ul className="space-y-4">
-          <li className="flex items-center text-black">
-            <Image
-              src="https://via.placeholder.com/30"
-              alt="Workout Icon"
-              className="mr-2"
-            />
-            - Strength Training
-          </li>
-          <li className="flex items-center text-black">
-            <Image
-              src="https://via.placeholder.com/30"
-              alt="Workout Icon"
-              className="mr-2"
-            />
-            - Cardio Session
-          </li>
-          <li className="flex items-center text-black">
-            <Image
-              src="https://via.placeholder.com/30"
-              alt="Workout Icon"
-              className="mr-2"
-            />
-            - Endurance Training
-          </li>
-        </ul>
-      </section>
+      </div>
     </div>
   );
 };

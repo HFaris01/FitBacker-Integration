@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import WorkoutPlans from '../components/WorkoutPlans';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import withAuth from '../components/withAuth';
 
 const workouts = () => {
   return (
@@ -17,4 +18,4 @@ const workouts = () => {
   );
 };
 
-export default workouts;
+export default withAuth(workouts);

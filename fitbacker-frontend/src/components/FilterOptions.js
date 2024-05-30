@@ -5,6 +5,7 @@ const FilterOptions = ({ onFilter, fitnessPlan }) => {
     lowCalories: false,
     highProtein: false,
     lowCarbs: false,
+    lowFat: false, // Added lowFat filter
   });
 
   useEffect(() => {
@@ -35,8 +36,8 @@ const FilterOptions = ({ onFilter, fitnessPlan }) => {
   };
 
   return (
-    <div className="filter-options">
-      <div className="filter-item">
+    <div className="flex flex-col md:flex-row items-center space-x-4">
+      <div className="flex items-center space-x-2">
         <input
           type="checkbox"
           name="lowCalories"
@@ -46,13 +47,12 @@ const FilterOptions = ({ onFilter, fitnessPlan }) => {
         />
         <label
           htmlFor="lowCalories"
-          style={{ color: selectedFilters.lowCalories ? 'blue' : 'black' }}
-          className="filter-label"
+          className={`filter-label ${selectedFilters.lowCalories ? 'text-blue-500' : 'text-black'}`}
         >
           Low Calories
         </label>
       </div>
-      <div className="filter-item">
+      <div className="flex items-center space-x-2">
         <input
           type="checkbox"
           name="highProtein"
@@ -62,13 +62,12 @@ const FilterOptions = ({ onFilter, fitnessPlan }) => {
         />
         <label
           htmlFor="highProtein"
-          style={{ color: selectedFilters.highProtein ? 'blue' : 'black' }}
-          className="filter-label"
+          className={`filter-label ${selectedFilters.highProtein ? 'text-blue-500' : 'text-black'}`}
         >
           High Protein
         </label>
       </div>
-      <div className="filter-item">
+      <div className="flex items-center space-x-2">
         <input
           type="checkbox"
           name="lowCarbs"
@@ -78,15 +77,29 @@ const FilterOptions = ({ onFilter, fitnessPlan }) => {
         />
         <label
           htmlFor="lowCarbs"
-          style={{ color: selectedFilters.lowCarbs ? 'blue' : 'black' }}
-          className="filter-label"
+          className={`filter-label ${selectedFilters.lowCarbs ? 'text-blue-500' : 'text-black'}`}
         >
           Low Carbs
         </label>
       </div>
+      <div className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          name="lowFat"
+          checked={selectedFilters.lowFat}
+          onChange={handleFilterChange}
+          className="filter-checkbox"
+        />
+        <label
+          htmlFor="lowFat"
+          className={`filter-label ${selectedFilters.lowFat ? 'text-blue-500' : 'text-black'}`}
+        >
+          Low Fat
+        </label>
+      </div>
       <button
         onClick={applyFilters}
-        className="apply-filters-button"
+        className="apply-filters-button bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mt-4 md:mt-0"
       >
         Apply Filters
       </button>

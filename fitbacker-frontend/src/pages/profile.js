@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import UserProfile from '../components/UserProfile';
 import Footer from '../components/Footer';
+import withAuth from '../components/withAuth';
 
 const profile = () => {
   return (
@@ -17,4 +18,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default withAuth(profile);

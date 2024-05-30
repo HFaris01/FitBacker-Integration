@@ -1,33 +1,28 @@
-version: '3.8'
+version: '3'
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
   backend:
     build: ./fitbacker-backend
-    container_name: backend
     ports:
       - "5000:5000"
-    env_file:
-      - ./fitbacker-backend/.env
+    environment:
+      - MONGO_URI=mongodb://root:example@mongodb:27017/mydatabase?authSource=admin
+      - JWT_SECRET=H3k6qXGcazgGJHcVrzR2VZ1
+      - SPOONACULAR_API_KEY=dcc88dad4af74ad7bb5feb32d3a650bc
     depends_on:
       - mongodb
-
   frontend:
     build: ./fitbacker-frontend
-    container_name: frontend
     ports:
       - "3000:3000"
-    depends_on:
-      - backend
+  mongodb:
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
 
 volumes:
   mongo-data:

@@ -1,18 +1,17 @@
 import React from 'react';
 
-const NutritionSummary = ({ foodLog }) => {
-  const totalCalories = foodLog.reduce((acc, food) => acc + Number(food.calories), 0);
-  const totalProtein = foodLog.reduce((acc, food) => acc + Number(food.protein), 0);
-  const totalCarbs = foodLog.reduce((acc, food) => acc + Number(food.carbs), 0);
-  const totalFat = foodLog.reduce((acc, food) => acc + Number(food.fat), 0);
+const NutritionSummary = ({ dailySummary }) => {
+  const { calories, proteins, carbs, fats } = dailySummary;
 
   return (
-    <div className="summary">
-      <h2 style={{ color: 'black' }}>Daily Nutrition Summary</h2>
-      <p style={{ color: 'black' }}>Calories: {totalCalories}</p>
-      <p style={{ color: 'black' }}>Protein: {totalProtein}g</p>
-      <p style={{ color: 'black' }}>Carbs: {totalCarbs}g</p>
-      <p style={{ color: 'black' }}>Fat: {totalFat}g</p>
+    <div className="nutrition-summary bg-white-custom p-6 rounded-lg shadow-md mb-4">
+      <h2 className="text-2xl font-bold mb-4 text-black-custom">Daily Nutrition Summary</h2>
+      <ul className="text-black-custom">
+        <li>Calories: {calories} kcal</li>
+        <li>Proteins: {proteins} g</li>
+        <li>Carbs: {carbs} g</li>
+        <li>Fats: {fats} g</li>
+      </ul>
     </div>
   );
 };
