@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { FiLogOut } from 'react-icons/fi';
-
+import axios from 'axios';
 const Header = () => {
   const router = useRouter();
 
@@ -16,12 +16,6 @@ const Header = () => {
     <header className="bg-orangeQuart text-white p-4 flex justify-between items-center">
       <h1 className="text-xl font-bold">Welcome, Friend!</h1>
       <div className="flex items-center space-x-4">
-        <button
-          onClick={() => router.push('/profile')}
-          className="text-white hover:underline"
-        >
-          Profile
-        </button>
         <button
           onClick={handleLogout}
           className="flex items-center space-x-1 text-white hover:text-blueSec"

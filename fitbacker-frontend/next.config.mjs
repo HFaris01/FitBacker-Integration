@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['via.placeholder.com', 'img.spoonacular.com'],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

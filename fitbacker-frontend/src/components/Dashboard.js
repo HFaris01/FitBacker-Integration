@@ -1,149 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import Image from 'next/image';
-import axios from 'axios';
-
-const WeeklyNutritionGraph = ({ selectedNutrient }) => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchWeeklyNutrition = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/nutrition/weekly`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const formattedData = response.data.map(entry => ({
-          date: entry.date,
-          value: entry[selectedNutrient],
-        }));
-
-        setData(formattedData);
-      } catch (error) {
-        console.error('Error fetching weekly nutrition data:', error);
-      }
-    };
-
-    fetchWeeklyNutrition();
-  }, [selectedNutrient]);
-
-  return (
-    <LineChart width={500} height={300} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="date" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="value" stroke="#8884d8" />
-    </LineChart>
-  );
-};
-
+import React from 'react';
 const Dashboard = () => {
-  const [caloriesData, setCaloriesData] = useState([]);
-  const [recentExercises, setRecentExercises] = useState([]);
-  const [suggestedExercise, setSuggestedExercise] = useState({});
-  const [user, setUser] = useState(null);
-  const [isClient, setIsClient] = useState(false);
-  const [selectedNutrient, setSelectedNutrient] = useState('calories');
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/me`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(response.data);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-
-    const fetchDashboardData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setCaloriesData(response.data.caloriesData);
-        setRecentExercises(response.data.recentExercises);
-        setSuggestedExercise(response.data.suggestedExercise);
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-      }
-    };
-
-    fetchUserData();
-    fetchDashboardData();
-  }, []);
-
   return (
-    <div className="flex-1 p-6 overflow-hidden">
-      <section className="grid grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h1 className='font-bold hover:cursor-default text-2xl mb-5 text-black'>Weekly Nutrition Graph</h1>
-          <div className="mb-4">
-            <label className="mr-2">Select Nutrient:</label>
-            <select
-              value={selectedNutrient}
-              onChange={(e) => setSelectedNutrient(e.target.value)}
-              className="p-2 border rounded"
-            >
-              <option value="calories">Calories</option>
-              <option value="proteins">Proteins</option>
-              <option value="carbs">Carbs</option>
-              <option value="fats">Fats</option>
-            </select>
-          </div>
-          {isClient && (
-            <WeeklyNutritionGraph selectedNutrient={selectedNutrient} />
-          )}
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h1 className="text-2xl hover:cursor-default font-bold text-black mb-2">You should try this exercise!</h1>
-          <div className="flex items-center">
-            <Image src={suggestedExercise.image || 'https://via.placeholder.com/400'} alt="Fitness Widget" className="mr-4" width={100} height={100} />
-            <div>
-              <p className="text-black">Exercise: {suggestedExercise.name || 'Push-ups'}</p>
-              <p className="text-black">Description: {suggestedExercise.description || 'Start in a plank position with hands shoulder-width apart. Lower your body until your chest nearly touches the floor, then push yourself back up to the starting position.'}</p>
-              <p className="text-black">Muscles worked: {suggestedExercise.muscles || 'Chest, shoulders, triceps, core'}</p>
+    <div className="flex h-full bg-gray-100">
+      <div className="flex-1">
+        <div className="p-6 space-y-6">
+          <section className="text-center bg-white p-8 rounded-lg shadow-lg">
+            <h1 className="text-4xl font-bold text-blue-600">Welcome to FitBacker!</h1>
+            <p className="mt-4 text-lg text-gray-700">Your ultimate tool for managing recipes and tracking your nutrition.</p>
+          </section>
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+              <h2 className="text-2xl font-bold text-blue-600">Recipe Search</h2>
+              <p className="mt-2 text-gray-700">Find delicious recipes tailored to your dietary needs.</p>
             </div>
-          </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+              <h2 className="text-2xl font-bold text-blue-600">Nutrition Logger</h2>
+              <p className="mt-2 text-gray-700">Keep track of your daily intake of calories, proteins, carbs, and fats.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+              <h2 className="text-2xl font-bold text-blue-600">Personalized Goals</h2>
+              <p className="mt-2 text-gray-700">Set and track your nutrition goals to stay on target.</p>
+            </div>
+          </section>
+          <section className="text-center bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-3xl font-bold text-blue-600">Get Started Today!</h2>
+            <p className="mt-4 text-lg text-gray-700">Sign up now and take control of your nutrition and fitness journey.</p>
+            <button className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+              Sign Up Now
+            </button>
+          </section>
         </div>
-      </section>
-      <section className="mt-6">
-        <h2 className="text-xl hover:cursor-default font-bold text-black mb-4">Recent Workouts</h2>
-        {recentExercises.length > 0 ? (
-          <ul className="space-y-4">
-            {recentExercises.map((exercise, index) => (
-              <li key={index} className="flex items-center text-black">
-                <Image
-                  src={exercise.image || 'https://via.placeholder.com/30'}
-                  alt="Workout Icon"
-                  className="mr-2"
-                  width={30}
-                  height={30}
-                />
-                - {exercise.name}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-black">No recent workouts. Start logging your exercises to track your progress!</p>
-        )}
-      </section>
+      </div>
     </div>
   );
 };

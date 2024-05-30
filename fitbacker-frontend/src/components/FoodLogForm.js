@@ -38,7 +38,7 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setFoodName(e.target.value)}
         placeholder="Food Name"
         required
-        className="input"
+        className="input text-black"
       />
       <input
         type="number"
@@ -46,7 +46,7 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setCalories(e.target.value)}
         placeholder="Calories"
         required
-        className="input"
+        className="input text-black"
       />
       <input
         type="number"
@@ -54,7 +54,7 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setProteins(e.target.value)}
         placeholder="Proteins (g)"
         required
-        className="input"
+        className="input text-black"
       />
       <input
         type="number"
@@ -62,7 +62,7 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setCarbs(e.target.value)}
         placeholder="Carbs (g)"
         required
-        className="input"
+        className="input text-black"
       />
       <input
         type="number"
@@ -70,7 +70,7 @@ const FoodLogForm = ({ onFoodLogged }) => {
         onChange={(e) => setFats(e.target.value)}
         placeholder="Fats (g)"
         required
-        className="input"
+        className="input text-black"
       />
       <button type="submit" className="btn">Log Food</button>
     </form>
